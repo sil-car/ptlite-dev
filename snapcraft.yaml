@@ -14,10 +14,6 @@ icon: snap/gui/paratextlite.png
 type: app
 architectures:
   - build-on: [amd64]
-    run-on: [amd64]
-  - build-on: [amd64]
-    run-on: [arm64]
-  - build-on: [arm64]
     run-on: [arm64]
 
 # We need snapd 2.55 or later to have the needed support for the
@@ -37,7 +33,7 @@ plugs:
 apps:
   paratextlite:
     command: start.sh
-    extensions: [gnome-3-38]
+    extensions: ["gnome-3-38:arm64"]
     plugs:
       - network-bind
       - desktop
@@ -61,53 +57,30 @@ parts:
     # See 'snapcraft plugins'
     plugin: dump
     source:
-      - on amd64 to amd64: package/Linux
-      - on amd64 to arm64: package/LinuxArm64
-      - on arm64: package/LinuxArm64
+      - package/LinuxArm64
     stage-packages:
-      - on amd64 to arm64:
-        - "libicu66:arm64"
-        - "libxshmfence1:arm64"
-        - "libatk1.0-0:arm64"
-        - "libgtk-3-0:arm64"
-        - "libdrm2:arm64"
-        - "libgbm1:arm64"
-        - "libcurl4:arm64"
-        - "liblttng-ust0:arm64"
-        - "libasound2:arm64"
-        - "libgconf-2-4:arm64"
-        - "libnotify4:arm64"
-        - "libnspr4:arm64"
-        - "libnss3:arm64"
-        - "libpcre3:arm64"
-        - "libpulse0:arm64"
-        - "libxss1:arm64"
-        - "libxtst6:arm64"
-        - "libx11-xcb1:arm64"
-        - "libgdk-pixbuf2.0-0:arm64"
-        - "fonts-roboto:arm64"
-      - else:
-        - libicu66
-        - libxshmfence1
-        - libatk1.0-0
-        - libgtk-3-0
-        - libdrm2
-        - libgbm1
-        - libcurl4
-        - liblttng-ust0
-        - libasound2
-        - libgconf-2-4
-        - libnotify4
-        - libnspr4
-        - libnss3
-        - libpcre3
-        - libpulse0
-        - libxss1
-        - libxtst6
-        - libx11-xcb1
-        - libgdk-pixbuf2.0-0
-        - fonts-roboto
-    stage-snaps: [mercurial]
+      - "libicu66:arm64"
+      - "libxshmfence1:arm64"
+      - "libatk1.0-0:arm64"
+      - "libgtk-3-0:arm64"
+      - "libdrm2:arm64"
+      - "libgbm1:arm64"
+      - "libcurl4:arm64"
+      - "liblttng-ust0:arm64"
+      - "libasound2:arm64"
+      - "libgconf-2-4:arm64"
+      - "libnotify4:arm64"
+      - "libnspr4:arm64"
+      - "libnss3:arm64"
+      - "libpcre3:arm64"
+      - "libpulse0:arm64"
+      - "libxss1:arm64"
+      - "libxtst6:arm64"
+      - "libx11-xcb1:arm64"
+      - "libgdk-pixbuf2.0-0:arm64"
+      - "fonts-roboto:arm64"
+
+    stage-snaps: ["mercurial:arm64"]
   assets-part:
     plugin: dump
     source: package/Assets
@@ -135,9 +108,7 @@ parts:
   ibus-part:
     plugin: dump
     source:
-      - on amd64 to amd64: ibus/Linux
-      - on amd64 to arm64: ibus/LinuxArm64
-      - on arm64: ibus/LinuxArm64
+      - ibus/LinuxArm64
 
 layout:
   /usr/bin/hg:
