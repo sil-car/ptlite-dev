@@ -56,10 +56,17 @@ apps:
       PYTHONPYCACHEPREFIX: $SNAP_USER_COMMON/.cache/pycache
 
 parts:
+  arm64:
+    plugin: nil
+    override-build: |
+      sudo dpkg --add-architecture arm64
+      sudo apt-get update
+
   paratextlite-part:
     # See 'snapcraft plugins'
     plugin: dump
     source: package/LinuxArm64
+    after: arm64
     stage-packages:
       - "libicu66:arm64"
       - "libxshmfence1:arm64"
@@ -81,9 +88,6 @@ parts:
       - "libx11-xcb1:arm64"
       - "libgdk-pixbuf2.0-0:arm64"
       - "fonts-roboto:arm64"
-    override-stage: |
-      dpkg --add-architecture arm64
-      snapcraftctl stage
 
     stage-snaps: ["mercurial:arm64"]
   assets-part:
