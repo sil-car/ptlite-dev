@@ -60,6 +60,7 @@ parts:
     plugin: nil
     override-build: |
       sudo dpkg --add-architecture arm64
+      sudo sed -i -e 's/archive.ubuntu.com\|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
       sudo apt-get update
 
   paratextlite-part:
