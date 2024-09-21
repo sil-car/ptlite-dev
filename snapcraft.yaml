@@ -13,6 +13,9 @@ confinement: strict # use 'strict' instead of 'devmode' once you have the right 
 icon: snap/gui/paratextlite.png
 type: app
 architectures:
+  # For core20 there can only be a 1-to-1 relationship between each build-on
+  # and run-on pair. In other words, "build plans" are  not supported.
+  # https://snapcraft.io/docs/explanation-architectures#core20
   - build-on: [amd64]
     run-on: [arm64]
 
