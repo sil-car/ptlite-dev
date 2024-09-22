@@ -61,11 +61,10 @@ parts:
     override-build: |
       sudo dpkg --add-architecture arm64
       # sudo sed -i -e 's/archive.ubuntu.com\|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
-      amd64src=/etc/apt/sources.list.d/arm64.sources
-      echo "Types: deb" > $amd64src
-      echo "URIs: http://old-releases.ubuntu.com/ubuntu" >> $amd64src
-      echo "Suites: focal focal-updates focal-security" >> $amd64src
-      echo "Components: main" >> $amd64src
+      amd64src=/etc/apt/sources.list.d/arm64.list
+      echo "deb [arch=arm64] http://ports.ubuntu.com/ focal main restricted" > $amd64src
+      echo "deb [arch=arm64] http://ports.ubuntu.com/ focal-security main restricted" >> $amd64src
+      echo "deb [arch=arm64] http://ports.ubuntu.com/ focal-updates main restricted" >> $amd64src
       sudo apt-get update
 
   paratextlite-part:
