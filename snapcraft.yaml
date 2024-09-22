@@ -61,10 +61,16 @@ parts:
     override-build: |
       sudo dpkg --add-architecture arm64
       # Add ubuntu ports repos.
-      amd64src=/etc/apt/sources.list.d/arm64.list
-      echo "deb [arch=arm64] http://ports.ubuntu.com/ focal main restricted" > $amd64src
-      echo "deb [arch=arm64] http://ports.ubuntu.com/ focal-security main restricted" >> $amd64src
-      echo "deb [arch=arm64] http://ports.ubuntu.com/ focal-updates main restricted" >> $amd64src
+      # amd64src=/etc/apt/sources.list.d/arm64.list
+      # echo "deb [arch=arm64] http://ports.ubuntu.com/ focal main restricted" > $amd64src
+      # echo "deb [arch=arm64] http://ports.ubuntu.com/ focal-security main restricted" >> $amd64src
+      # echo "deb [arch=arm64] http://ports.ubuntu.com/ focal-updates main restricted" >> $amd64src
+      amd64src=/etc/apt/sources.list.d/arm64.sources
+      echo "Types: deb" > $amd64src
+      echo "URIs: http://ports.ubuntu.com" >> $amd64src
+      echo "Suites: focal focal-security focal-updates" >> $amd64src
+      echo "Components: main multiverse universe" >> $amd64src
+      echo "Architectures: arm64" >> $amd64src
       # Only look for amd64 pkgs in existing repos.
       echo "Architectures: amd64" >> /etc/apt/sources.list.d/default.sources
       echo "Architectures: amd64" >> /etc/apt/sources.list.d/default-security.sources
