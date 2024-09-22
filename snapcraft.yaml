@@ -102,8 +102,7 @@ parts:
       - "libx11-xcb1:arm64"
       - "libgdk-pixbuf2.0-0:arm64"
       - "fonts-roboto:arm64"
-
-    stage-snaps: ["mercurial:arm64"]
+    stage-snaps: [mercurial]
   assets-part:
     plugin: dump
     source: package/Assets
