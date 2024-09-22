@@ -60,11 +60,13 @@ parts:
     plugin: nil
     override-build: |
       sudo dpkg --add-architecture arm64
-      # sudo sed -i -e 's/archive.ubuntu.com\|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
+      # Add ubuntu ports repos.
       amd64src=/etc/apt/sources.list.d/arm64.list
       echo "deb [arch=arm64] http://ports.ubuntu.com/ focal main restricted" > $amd64src
       echo "deb [arch=arm64] http://ports.ubuntu.com/ focal-security main restricted" >> $amd64src
       echo "deb [arch=arm64] http://ports.ubuntu.com/ focal-updates main restricted" >> $amd64src
+      # Only look for amd64 pkgs in existing repos.
+      echo "Architectures: amd64" >> /etc/apt/sources.list.d/*.sources
       sudo apt-get update
 
   paratextlite-part:
