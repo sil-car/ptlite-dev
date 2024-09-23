@@ -74,13 +74,11 @@ parts:
       sudo apt-get update
 
   mercurial:
-    # Can't use mercurial snap b/c it pulls the arch of the build system;
-    # building locally instead.
-    plugin: python
-    source: https://www.mercurial-scm.org/release/mercurial-6.7.4.tar.gz
+    plugin: nil
     after: [arm64]
-    build-packages:
-      - "python3-pkg-resources:arm64"  # needed by pip
+    override-build: |
+      wget http://ports.ubuntu.com/pool/universe/m/mercurial/mercurial_6.7.2-1ubuntu2.2_arm64.deb
+      sudo dpkg --install ./mercurial_6.7.2-1ubuntu2.2_arm64.deb
 
   paratextlite-part:
     # See 'snapcraft plugins'
