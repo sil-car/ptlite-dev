@@ -73,22 +73,22 @@ parts:
       echo "Architectures: amd64" >> /etc/apt/sources.list.d/default-security.sources
       sudo apt-get update
 
-  # mercurial-common:
-  #   plugin: dump
-  #   source: http://ports.ubuntu.com/pool/universe/m/mercurial/mercurial-common_6.7.2-1ubuntu2.2_all.deb
-  #   source-type: deb
+  mercurial-common:
+    plugin: dump
+    source: http://ports.ubuntu.com/pool/universe/m/mercurial/mercurial-common_5.3.1-1ubuntu1_all.deb
+    source-type: deb
 
-  # mercurial:
-  #   plugin: dump
-  #   source: http://ports.ubuntu.com/pool/universe/m/mercurial/mercurial_6.7.2-1ubuntu2.2_arm64.deb
-  #   source-type: deb
-  #   after: [mercurial-common]
+  mercurial:
+    plugin: dump
+    source: http://ports.ubuntu.com/pool/universe/m/mercurial/mercurial_5.3.1-1ubuntu1_arm64.deb
+    source-type: deb
+    after: [mercurial-common]
 
   paratextlite-part:
     # See 'snapcraft plugins'
     plugin: dump
     source: package/LinuxArm64
-    after: [arm64]
+    after: [arm64, mercurial]
     stage-packages:
       - "libicu66:arm64"
       - "libxshmfence1:arm64"
@@ -110,7 +110,6 @@ parts:
       - "libx11-xcb1:arm64"
       - "libgdk-pixbuf2.0-0:arm64"
       - "fonts-roboto:arm64"
-      - "mercurial:arm64"
   assets-part:
     plugin: dump
     source: package/Assets
