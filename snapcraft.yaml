@@ -76,11 +76,13 @@ parts:
   mercurial:
     plugin: nil
     after: [arm64]
+    build-packages:
+      - wget
     override-build: |
       hg_common=mercurial-common_6.7.2-1ubuntu2.2_all.deb
       hg=mercurial_6.7.2-1ubuntu2.2_arm64.deb
-      curl -o $hg_common http://ports.ubuntu.com/pool/universe/m/mercurial/$hg_common
-      curl -o $hg http://ports.ubuntu.com/pool/universe/m/mercurial/$hg
+      wget http://ports.ubuntu.com/pool/universe/m/mercurial/$hg_common
+      wget http://ports.ubuntu.com/pool/universe/m/mercurial/$hg
       sudo dpkg --install $hg_common
       sudo dpkg --install $hg
 
