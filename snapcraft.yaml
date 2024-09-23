@@ -78,8 +78,9 @@ parts:
     # building locally instead.
     plugin: python
     source: https://www.mercurial-scm.org/release/mercurial-6.7.4.tar.gz
-    build-packages:
-      - python3-pkg-resources  # needed by pip
+    after: [arm64]
+    # build-packages:
+    #   - python3-pkg-resources  # needed by pip
 
   paratextlite-part:
     # See 'snapcraft plugins'
