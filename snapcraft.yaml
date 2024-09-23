@@ -57,14 +57,11 @@ apps:
 
 parts:
   arm64:
+    # Need to add build system support for arm64 architecture.
     plugin: nil
     override-build: |
       sudo dpkg --add-architecture arm64
       # Add ubuntu ports repos.
-      # amd64src=/etc/apt/sources.list.d/arm64.list
-      # echo "deb [arch=arm64] http://ports.ubuntu.com/ focal main restricted" > $amd64src
-      # echo "deb [arch=arm64] http://ports.ubuntu.com/ focal-security main restricted" >> $amd64src
-      # echo "deb [arch=arm64] http://ports.ubuntu.com/ focal-updates main restricted" >> $amd64src
       amd64src=/etc/apt/sources.list.d/arm64.sources
       echo "Types: deb" > $amd64src
       echo "URIs: http://ports.ubuntu.com" >> $amd64src
@@ -76,11 +73,17 @@ parts:
       echo "Architectures: amd64" >> /etc/apt/sources.list.d/default-security.sources
       sudo apt-get update
 
+  mercurial:
+    # Can't use mercurial snap b/c it pulls the arch of the build system;
+    # building locally instead.
+    plugin: python
+    source: https://www.mercurial-scm.org/release/mercurial-6.7.4.tar.gz
+
   paratextlite-part:
     # See 'snapcraft plugins'
     plugin: dump
     source: package/LinuxArm64
-    after: [arm64]
+    after: [arm64, mercurial]
     stage-packages:
       - "libicu66:arm64"
       - "libxshmfence1:arm64"
@@ -102,7 +105,6 @@ parts:
       - "libx11-xcb1:arm64"
       - "libgdk-pixbuf2.0-0:arm64"
       - "fonts-roboto:arm64"
-    stage-snaps: [mercurial]
   assets-part:
     plugin: dump
     source: package/Assets
@@ -131,6 +133,7 @@ parts:
     plugin: dump
     source: ibus/LinuxArm64
 
-layout:
-  /usr/bin/hg:
-    symlink: $SNAP/bin/hg
+# Don't need symlink when not using mercurial snap.
+# layout:
+#   /usr/bin/hg:
+#     symlink: $SNAP/bin/hg
