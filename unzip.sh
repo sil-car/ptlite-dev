@@ -5,5 +5,6 @@ if [[ -z $1 || ${1##*.} != 'zip' ]]; then
     exit 1
 fi
 
+rm -rf package
 unzip -d . "$1"
 find package/ -type f -name ParatextLite -exec chmod +x {} +
