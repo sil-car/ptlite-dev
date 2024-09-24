@@ -9,7 +9,7 @@ start_dir="$PWD"
 release_dir=$(rclone lsd "${drive_name}":"${builds_path}" | tr -s ' ' | cut -d' ' -f6 | sort | tail -n1)
 
 # Get PT version number.
-ver=$(${release_dir##*_})
+ver=${release_dir##*_}
 
 # Download package.zip to folder named with version number.
 mkdir "$release_dir"
